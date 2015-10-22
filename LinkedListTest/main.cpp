@@ -8,9 +8,12 @@
 
 #include <iostream>
 #include "Queue.h"
+#include "progress.h"
 
 
 int main(int argc, const char * argv[]) {
+    
+    Client_Progress* heladera = new Client_Progress();
     
     // Creamos el head de la lista
     Client* client = new Client();
@@ -32,5 +35,6 @@ int main(int argc, const char * argv[]) {
     std::cout<< "El numero del cliente: " << client->clientNumber() << std::endl;
     std::cout<< "El proximo cliente es: " << client->nextClient()->clientNumber();
     
+    heladera->input();
     return 0;
 }
