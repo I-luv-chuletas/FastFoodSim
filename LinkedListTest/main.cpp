@@ -7,9 +7,30 @@
 //
 
 #include <iostream>
+#include "Queue.h"
+
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    
+    // Creamos el head de la lista
+    Client* client = new Client();
+    
+    client->push(client);
+    client->setNumber(1);
+    
+    Client* client1 = new Client();
+    
+    client->push(client1);
+    client1->setNumber(2);
+    
+    Client* client2 = new Client();
+    
+    client1->push(client2);
+    client2->setNumber(3);
+    
+    // Probamos
+    std::cout<< "El numero del cliente: " << client->clientNumber() << std::endl;
+    std::cout<< "El proximo cliente es: " << client->nextClient()->clientNumber();
+    
     return 0;
 }
