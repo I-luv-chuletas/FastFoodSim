@@ -19,8 +19,9 @@ class Client_Progress
 
 private:
     
-    std::vector<int> _servicePerClient;
+    std::vector<int> _serviceTimePerClient;
     std::vector<int> _clientWaitingTime;
+    
     double clientsPerMinute;    //clients per minute
     int initial_time;           //opening
     int end_time;               //closure
@@ -47,5 +48,9 @@ public:
     void probabilities();                       //calcular aleatoriamente las probabilidades de tiempo de servicio
     void output();                              //prints results
     void distributionMinutes();
+    
+    // GETTERS-------------//
+    float clientArrivalTimeRate();              // returns the the amount of minutes needed for a client to arrive
+    
 };
 #endif /* defined(__fast_food__progress__) */

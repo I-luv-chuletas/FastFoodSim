@@ -9,8 +9,9 @@
 #include "Queue.h"
 
 Client::Client(){
-    _clientNumber   = 0;
-    _serviceTime    = 0;
+    _clientNumber           = 0;
+    _serviceTime            = 0;
+    _clientWaitingTime      = 0;
 }
 
 void Client::setNumber(int number){
@@ -21,6 +22,9 @@ void Client::setServiceTime(int serviceTime){
     _serviceTime = serviceTime;
 }
 
+void Client::setClientWaitingTime(int waitingTime){
+    _clientWaitingTime = waitingTime;
+}
 
 //--------------------------------QUEUE--------------------------------//
 void Client::pop(){

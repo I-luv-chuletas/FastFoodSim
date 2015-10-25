@@ -25,7 +25,7 @@ Client_Progress::Client_Progress()
     service_acumulator  =   0;
     serviceTime         =   0;
     probability         =   0;
-    arrivalTime         =   0;
+arrivalTime         =   0;  //clienteArrivalRatioPerMinut
     waitTime            =   0;
 }
 //prompt the user to enter values for specific atributes
@@ -44,12 +44,9 @@ void Client_Progress::input()
     cout<<"Hora Final: ";
     cin>>end_time;
     
+    
+    
     cout<<endl<<endl;
-    
-    //cout<<endl<<endl;
-    
-    
-    //INCOMPLETO
 }
 
 
@@ -64,12 +61,6 @@ void Client_Progress::total_clients()
 {
     clients =   clientsPerMinute * total_minutes;
 }
-
-
-/*void Client_Progress::total_service(int service)
-{
-    service_acumulator += serviceTime;
-}*/
 
 
 int Client_Progress::simulation_time()
@@ -89,30 +80,31 @@ void Client_Progress::process()
     
 }
 
+
 void Client_Progress::probabilities()
 {
     int total_prob = 0;
     
-    cout<<"Enter probability and service time: ";
-    cin>>probability>>serviceTime;
-    total_prob += probability;
     
-    while (total_prob != 100)
+    while (total_prob < 100)
     {
-        while (probability > 0)
-        {
-            for (int i = 0; i < probability; i++)
-            {
-                _servicePerClient.push_back(serviceTime);
-            }
-        }
-        
-        cout<<"Vuelva entrar la probabilidad y el tiempo de servicio deseado: ";
+        cout<<"Enter probability and service time: ";
         cin>>probability>>serviceTime;
+        
         total_prob += probability;
         
+        // Dividimos el porcentaje
+        probability /= 10;
+        
+        for (int i = 0; i < probability; i++)
+        {
+            _serviceTimePerClient.push_back(serviceTime);
+        }
     }
+    
 }
+
+
 void Client_Progress::distributionMinutes()
 {
     for (int i = 0; i <= 10; i++)
@@ -126,3 +118,7 @@ void Client_Progress::distributionMinutes()
         }
     }
 }
+
+
+// GETTERS---------------------------------------------//
+float Client_Progress::clientArrivalTimeRate() { return arrivalTime; }

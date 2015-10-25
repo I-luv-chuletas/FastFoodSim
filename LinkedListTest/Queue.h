@@ -20,12 +20,17 @@ public:
     // Metodos que manegen data de clientes
     void setNumber(int number);
     void setServiceTime(int serviceTime);
-    int clientNumber() { return _clientNumber; }
-    int serviceTime()  { return _serviceTime;  }
-    Client* nextClient(){ return _nextClient; }
+    void setClientWaitingTime(int waitingTime);
+    void processWaitingTime(int serviceTime);
+    
+    int clientNumber()      { return _clientNumber; }
+    int serviceTime()       { return _serviceTime;  }
+    Client* nextClient()    { return _nextClient;  }
+    Client* firstClient()   { return _firstClient; }
     
     // Constructores y Clases
     Client();
+    class ClientQueue;
     
     // Control de Queue
     void pop();
@@ -36,11 +41,16 @@ public:
 private:
     // Campos de Datos por Cliente
     int _clientNumber;
+    int _clientWaitingTime;
     float _serviceTime;
     
     Client* _nextClient     = NULL;
     Client* _firstClient    = NULL;
     Client* _lastClient     = NULL;
+};
+
+class ClientQueue {
+    
 };
 
 #endif /* defined(__LinkedListTest__Queue__) */
