@@ -14,7 +14,7 @@
 int main(int argc, const char * argv[]) {
     
     int temp = 0;
-    int serviceTimeInMin            = 0;    // Time that it has taken to make the order and get rid of the client
+    int serviceTimeInMin            = 0;    // Time that it has taken to make the order and get rid of the client.
     //int timeSinceLastOrder          = 0;    // Will contain the time that has passed since the last order taken.
     //int minutesPassed               = 0;    // Will contain the time that has passed in the process
     
@@ -31,48 +31,56 @@ int main(int argc, const char * argv[]) {
     // Sacamos los datos de las probabilidades:
     heladera->probabilities();
     
+    // We make sure serviceTimeInMin initially is higher than the arrival rate, so that we create a new client in our first run
+    serviceTimeInMin = heladera->clientArrivalTimeRate() + 1;
+    
     //------------------------------------MAIN LOOP------------------------------------//
     while (heladera->totalHours() > accumulatedServiceTime) {  // Mientras que el tiempo total de apertura sea mayor que el tiempo que ha pasado
         std::cout << "\n DENTRO DEL MAINLOOP BITCHES \n"; 
         
         // First Phase: We take the order of the first client:
-        if(clientQueue->isEmpty())
+        if(!clientQueue->isEmpty())
         {
             
-            std::cout<< "Esta Vacio mamabicho" << std::endl;
+            std::cout<< "Arranca y brega con el fokin cliente pai" << std::endl;
             
             // Sacamos el serviceTime para el cliente
-            serviceTimeInMin = heladera->getServiceTime();
+            serviceTimeInMin += heladera->getServiceTime();
             clientQueue->setServiceTime(serviceTimeInMin); // Innecesario
             clientQueue->pop();
             
         }
         
         
-        
-        
-        
         //Second Phase: Se añaden los clientes necesarios:
         while (serviceTimeInMin >= heladera->clientArrivalTimeRate()) { // Si se lleva esperando mas tiempo de lo que llega un cliente
             
-            Client* client = new Client(); // Llega un nuevo cliente
-            clientQueue->push(client); // The new client will locate itself on the queue
-            std::cout << " Pario el hijueput LOLROFLLMAO" << std::endl;
+            Client* client = new Client();  // Llega un nuevo cliente
+            clientQueue->push(client);      // The new client will locate itself on the queue
+            std::cout << " Pario el hijuepu LOLROFLLMAO" << std::endl;
             std::cin >> temp;
             
-        }
-        
-        // Third Phase: Apply the waiting time to the clients in queue
-        if (serviceTimeInMin > heladera->clientArrivalTimeRate() && !clientQueue->isEmpty()) {
 
+            // Third Phase: Apply the waiting time to the clients in queue
             int waitingTime = serviceTimeInMin - heladera->clientArrivalTimeRate();
-            clientQueue->firstClient()->setClientWaitingTime(waitingTime);
+            clientQueue->setClientWaitingTime(waitingTime);
             accumulatedWaitingTime += waitingTime;
             
+            
+            serviceTimeInMin -= heladera->clientArrivalTimeRate();
         }
         
-        // Le añadimos a los acumuladores
-        accumulatedServiceTime += serviceTimeInMin;
+        
+//        // Third Phase: Apply the waiting time to the clients in queue
+//        if (serviceTimeInMin > heladera->clientArrivalTimeRate() && clientQueue->firstClient()->nextClient() != NULL) {
+//
+//            int waitingTime = serviceTimeInMin - heladera->clientArrivalTimeRate();
+//            clientQueue->firstClient()->setClientWaitingTime(waitingTime);
+//            accumulatedWaitingTime += waitingTime;
+//            
+//        }
+        
+        std::cout<< "\nTiempo de servicio acumulado es: "<<clientQueue->serviceTime() << std::endl;
         
         
     }

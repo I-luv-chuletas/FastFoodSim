@@ -54,6 +54,11 @@ void Client::push(Client *client){
         _firstClient    = new Client();  // Inicializamos los objetos
         _nextClient     = new Client();
         _lastClient     = new Client();
+        
+        // Inicializamos los valores
+        _firstClient = client;
+        _lastClient  = client;
+        _nextClient  = NULL;
     }
     
     
@@ -75,3 +80,6 @@ bool Client::isEmpty() {
     } else
         return false;
 }
+
+//------------------------------GETTERS------------------------------//
+
