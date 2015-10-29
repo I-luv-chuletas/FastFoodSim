@@ -8,14 +8,15 @@
 
 #include <iostream>
 #include "Queue.h"
-#include "progress.h"
+#include "ClientProgress.h"
 
 
 int main(int argc, const char * argv[]) {
     
+    int temp = 0;
     int serviceTimeInMin            = 0;    // Time that it has taken to make the order and get rid of the client
-    int timeSinceLastOrder          = 0;    // Will contain the time that has passed since the last order taken.
-    int minutesPassed               = 0;    // Will contain the time that has passed in the process
+    //int timeSinceLastOrder          = 0;    // Will contain the time that has passed since the last order taken.
+    //int minutesPassed               = 0;    // Will contain the time that has passed in the process
     
     int accumulatedWaitingTime      = 0;    // Contains the amount of time that has been waited
     int accumulatedServiceTime      = 0;    // Contains the amount of service time in general
@@ -31,18 +32,33 @@ int main(int argc, const char * argv[]) {
     heladera->probabilities();
     
     //------------------------------------MAIN LOOP------------------------------------//
-    while (heladera->simulation_time() > accumulatedServiceTime) {  // Mientras que el tiempo total de apertura sea mayor que el tiempo que ha pasado
+    while (heladera->totalHours() > accumulatedServiceTime) {  // Mientras que el tiempo total de apertura sea mayor que el tiempo que ha pasado
+        std::cout << "\n DENTRO DEL MAINLOOP BITCHES \n"; 
         
         // First Phase: We take the order of the first client:
-        // Sacamos el serviceTime para el cliente
-        clientQueue->setServiceTime(serviceTimeInMin); // Innecesario
-        clientQueue->pop();
+        if(clientQueue->isEmpty())
+        {
+            
+            std::cout<< "Esta Vacio mamabicho" << std::endl;
+            
+            // Sacamos el serviceTime para el cliente
+            serviceTimeInMin = heladera->getServiceTime();
+            clientQueue->setServiceTime(serviceTimeInMin); // Innecesario
+            clientQueue->pop();
+            
+        }
+        
+        
+        
+        
         
         //Second Phase: Se añaden los clientes necesarios:
         while (serviceTimeInMin >= heladera->clientArrivalTimeRate()) { // Si se lleva esperando mas tiempo de lo que llega un cliente
             
             Client* client = new Client(); // Llega un nuevo cliente
             clientQueue->push(client); // The new client will locate itself on the queue
+            std::cout << " Pario el hijueput LOLROFLLMAO" << std::endl;
+            std::cin >> temp;
             
         }
         
@@ -60,6 +76,8 @@ int main(int argc, const char * argv[]) {
         
         
     }
+    
+    // Se saca la cantidad de cliente que se atendieron.
     
     return 0;
 }

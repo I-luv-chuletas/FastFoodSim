@@ -25,7 +25,7 @@ Client_Progress::Client_Progress()
     service_acumulator  =   0;
     serviceTime         =   0;
     probability         =   0;
-arrivalTime         =   0;  //clienteArrivalRatioPerMinut
+    arrivalTime         =   0;  //clienteArrivalRatioPerMinut
     waitTime            =   0;
 }
 //prompt the user to enter values for specific atributes

@@ -7,6 +7,7 @@
 //
 
 #include "Queue.h"
+#include <iostream>
 
 Client::Client(){
     _clientNumber           = 0;
@@ -19,7 +20,7 @@ void Client::setNumber(int number){
 }
 
 void Client::setServiceTime(int serviceTime){
-    _serviceTime = serviceTime;
+    _serviceTime += serviceTime;
 }
 
 void Client::setClientWaitingTime(int waitingTime){
@@ -31,10 +32,16 @@ void Client::pop(){
     
     // Guardamos el proximo nodo en un puntero temporero
     Client* temp;
-    temp = _firstClient->_nextClient;
     
-    _firstClient = NULL;
-    _firstClient = temp;
+    std::cout<< "\n" <<_firstClient;
+    std::cout<< std::endl << "popeame este\n";
+    
+    if (_firstClient->_nextClient != NULL) {
+        temp = _firstClient->_nextClient;
+        
+        _firstClient = NULL;
+        _firstClient = temp;
+    }
     
 }
 
