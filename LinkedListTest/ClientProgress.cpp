@@ -118,7 +118,7 @@ void Client_Progress::probabilities()
 
 float Client_Progress::clientArrivalTimeRate()
 {
-    cout<<"Every "<<clientsArrivalMinutes/clientsArriving<<" minutes a client arrives."<<endl;
+    //cout<<"Every "<<clientsArrivalMinutes/clientsArriving<<" minutes a client arrives."<<endl;
     
     /*if (serviceTime > clientsArrivalMinutes)
     {

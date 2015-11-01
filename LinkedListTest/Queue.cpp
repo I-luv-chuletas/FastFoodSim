@@ -35,6 +35,12 @@ void Client::pop(){
     
     std::cout<< "\n" <<_firstClient;
     std::cout<< std::endl << "popeame este\n";
+//    
+//    if (_nextClient == NULL) {
+//        
+//        _firstClient = NULL;
+//        return;
+//    }
     
     if (_firstClient->_nextClient != NULL) {
         temp = _firstClient->_nextClient;
@@ -46,27 +52,24 @@ void Client::pop(){
 }
 
 
-void Client::push(Client *client){
+void Client::push(Client client){
     // Aqui metemos un nuevo cliente al final de la fila
     
     // Verificamos si es la primera corrida
     if (isEmpty()) {
-        _firstClient    = new Client();  // Inicializamos los objetos
-        _nextClient     = new Client();
-        _lastClient     = new Client();
         
         // Inicializamos los valores
-        _firstClient = client;
-        _lastClient  = client;
-        _nextClient  = NULL;
+        _firstClient = &client;
+        _lastClient  = &client;
+        _nextClient  = _firstClient;
+        
     }
     
-    
     // Apuntamos en la lista al proximo cliente
-    _lastClient->_nextClient = client;
+    _lastClient->_nextClient = &client;
     
     // Ahora mi ultimo cliente sera el cliente de parametro
-    _lastClient = client;
+    _lastClient = &client;
     
     // El proximo cliente del last client sera NULL ya que es el ultimo en la lista
     _lastClient->_nextClient = NULL;

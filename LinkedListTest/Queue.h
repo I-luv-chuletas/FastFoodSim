@@ -25,8 +25,9 @@ public:
     
     int clientNumber()      { return _clientNumber; }
     int serviceTime()       { return _serviceTime;  }
-    Client* nextClient()    { return _nextClient;  }
-    Client* firstClient()   { return _firstClient; }
+    int waitingTime()       { return _clientWaitingTime; }
+    Client** nextClient()    { return &_nextClient;  }
+    Client** firstClient()   { return &_firstClient; }
     
     // Constructores y Clases
     Client();
@@ -34,7 +35,7 @@ public:
     
     // Control de Queue
     void pop();
-    void push(Client* client);
+    void push(Client client);
     bool isEmpty();
     
     
